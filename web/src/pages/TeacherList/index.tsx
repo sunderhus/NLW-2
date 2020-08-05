@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import PageHeader from "../../components/PageHeader";
 import { TeacherItem } from "../../components/TeacherItem";
 
-import { Container, InputBlock, Form, Content } from "./styles";
+import { Container, InputBlock, Form, Content, NotFound } from "./styles";
 
 const TeacherForm: React.FC = () => {
+  const [teachers, setTeachers] = useState([]);
+
   return (
     <Container>
       <PageHeader title="Estes são os proffys disponíveis.">
@@ -25,12 +27,20 @@ const TeacherForm: React.FC = () => {
       </PageHeader>
 
       <Content>
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
+        {teachers ? (
+          <>
+            <TeacherItem />
+            <TeacherItem />
+            <TeacherItem />
+            <TeacherItem />
+            <TeacherItem />
+            <TeacherItem />
+          </>
+        ) : (
+          <NotFound>
+            <p>Nenhum professor encontrado com sua pesquisa.</p>
+          </NotFound>
+        )}
       </Content>
     </Container>
   );

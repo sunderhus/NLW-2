@@ -70,7 +70,19 @@ export const Content = styled.main`
 
   @media (min-width: 700px) {
     padding: 3.2rem 0;
-    max-width: 740px;
+    max-width: 74rem;
     margin: 0 auto;
+  }
+`;
+export const NotFound = styled.div`
+  display: flex;
+  width: 100%;
+  height: 40rem;
+  justify-content: center;
+  align-items: center;
+  p {
+    color: var(--color-text-complement);
+    max-width: 24.7rem;
+    text-align: center;
   }
 `;
