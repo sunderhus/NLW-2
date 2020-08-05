@@ -35,11 +35,11 @@ const Landing: React.FC = () => {
         />
 
         <ButtonContainer>
-          <StudyOption>
+          <StudyOption to="/study">
             <OptionIcon src={studyIcon} alt="Clique aqui para estudar." />
             Estudar
           </StudyOption>
-          <StudyOption>
+          <StudyOption to="/give-classes">
             <OptionIcon
               src={giveClassesIcon}
               alt="Clique aqui para dar aula."

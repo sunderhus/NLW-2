@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const WrapperPage = styled.div`
   width: 100vw;
@@ -74,7 +75,7 @@ export const ButtonContainer = styled.div`
   }
 `;
 
-export const StudyOption = styled.a`
+export const StudyOption = styled(Link)`
   width: 30rem;
   height: 10.4rem;
   border-radius: 0.8rem;
