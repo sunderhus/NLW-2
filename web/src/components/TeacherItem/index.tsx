@@ -16,12 +16,13 @@ export const TeacherItem: React.FC = () => {
       </header>
 
       <p>
-        Entusiasta das melhores tecnologias de química avançada.
+        Entusiasta das melhores tecnologias e padrões de projeto.
         <br />
         <br />
-        Apaixonado por explodir coisas em laboratório e por mudar a vida das
-        pessoas através de experiências. Mais de 200.000 pessoas já passaram por
-        uma das minhas explosões.
+        Apaixonado por soluções web e mobile. Busco ensinar não apenas o que uma
+        ferramente pode te ajudar, mas também o que pode ser alcançado com o
+        domínio de padrões e arquiteturas de software. Assim como você, sempre
+        em constante evolução.
       </p>
 
       <footer>

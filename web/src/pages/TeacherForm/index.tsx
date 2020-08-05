@@ -4,7 +4,7 @@ import PageHeader from "../../components/PageHeader";
 
 const TeacherList: React.FC = () => {
   return (
-    <Container className="container">
+    <Container>
       <PageHeader title="Que incrível que você quer dar aulas." />
     </Container>
   );

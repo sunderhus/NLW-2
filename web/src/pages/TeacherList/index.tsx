@@ -6,7 +6,7 @@ import { Container, InputBlock, Form, Content } from "./styles";
 
 const TeacherForm: React.FC = () => {
   return (
-    <Container className="container">
+    <Container>
       <PageHeader title="Estes são os proffys disponíveis.">
         <Form>
           <InputBlock>

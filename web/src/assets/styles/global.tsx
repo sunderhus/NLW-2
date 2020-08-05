@@ -1,4 +1,7 @@
-@import url("./variaveis.css");
+import { createGlobalStyle } from "styled-components";
+import "./variaveis.css";
+
+const GlobalStyles = createGlobalStyle`
 
 :root{
     font-size: 60%;
@@ -43,3 +46,6 @@ textarea{
         font-size: 62.5%;
     }
 }
+
+`;
+export default GlobalStyles;

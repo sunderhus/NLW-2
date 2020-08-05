@@ -24,7 +24,7 @@ const Landing: React.FC = () => {
   return (
     <WrapperPage>
       <Content>
-        <ContainerLogo className="container">
+        <ContainerLogo>
           <Logo src={logoImg} alt="Proffy Logo" />
           <Subtitulo>Sua Plataforma de estudos online.</Subtitulo>
         </ContainerLogo>
