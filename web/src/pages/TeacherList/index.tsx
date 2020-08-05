@@ -1,6 +1,8 @@
 import React from "react";
-import { Container, InputBlock, Form } from "./styles";
 import PageHeader from "../../components/PageHeader";
+import { TeacherItem } from "../../components/TeacherItem";
+
+import { Container, InputBlock, Form, Content } from "./styles";
 
 const TeacherForm: React.FC = () => {
   return (
@@ -21,6 +23,15 @@ const TeacherForm: React.FC = () => {
           </InputBlock>
         </Form>
       </PageHeader>
+
+      <Content>
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+      </Content>
     </Container>
   );
 };

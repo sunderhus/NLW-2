@@ -53,7 +53,6 @@ export const HeaderContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 
     strong {
       width: 350px;
