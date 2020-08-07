@@ -1,10 +1,8 @@
+import IFilterClassesDTO from "@modules/classes/dtos/IFilterClassesDTO";
+import CreateClassService from "@modules/classes/services/CreateClassService";
+import FindClassesByFilterService from "@modules/classes/services/FindClassesByFilterService";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-
-import CreateClassService from "@modules/classes/services/CreateClassService";
-import AppError from "@shared/errors/AppError";
-import FindClassesByFilterService from "@modules/classes/services/FindClassesByFilterService";
-import IFilterClassesDTO from "@modules/classes/dto/IFilterClassesDTO";
 
 export default class ClassesController {
   async create(request: Request, response: Response): Promise<Response> {

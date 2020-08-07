@@ -1,6 +1,6 @@
 import AppError from "@shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
-import ICreateClassesDTO from "../dto/ICreateClassesDTO";
+import ICreateClassesDTO from "../dtos/ICreateClassesDTO";
 import IClass from "../infra/knex/entities/Class";
 import IClassesRepository from "../repositories/IClassesRepository";
 

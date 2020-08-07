@@ -1,12 +1,11 @@
+import ICreateClassesDTO from "@modules/classes/dtos/ICreateClassesDTO";
+import IFilterClassesDTO from "@modules/classes/dtos/IFilterClassesDTO";
+import IUsersClassessDTO from "@modules/classes/dtos/IUsersClassessDTO";
 import IClassesRepository from "@modules/classes/repositories/IClassesRepository";
-import ICreateClassesDTO from "@modules/classes/dto/ICreateClassesDTO";
-
+import AppError from "@shared/errors/AppError";
 import db from "@shared/infra/database/knex/connections";
 import convertHourToMinutes from "@shared/utils/convertHourToMinutes";
 import IClass from "../entities/Class";
-import AppError from "@shared/errors/AppError";
-import IFilterClassesDTO from "@modules/classes/dto/IFilterClassesDTO";
-import { response } from "express";
 
 class ClassesRepository implements IClassesRepository {
   public async create({
@@ -69,15 +68,19 @@ class ClassesRepository implements IClassesRepository {
     subject,
     time,
     week_day,
-  }: IFilterClassesDTO): Promise<IClass[]> {
-    const transaction = await db.transaction();
-
-    const classes = await transaction("classes")
+  }: IFilterClassesDTO): Promise<IUsersClassessDTO[]> {
+    const classes = (await db("classes")
+      .whereExists(function () {
+        this.select("class_schedule.*")
+          .from("class_schedule")
+          .whereRaw("`class_schedule`.`class_id`= `classes`.`id`")
+          .whereRaw("`class_schedule`.`week_day` = ??", [Number(week_day)])
+          .whereRaw("`class_schedule`.`from` <= ??", [Number(time)])
+          .whereRaw("`class_schedule`.`to` > ??", [Number(time)]);
+      })
       .where("classes.subject", "=", subject)
       .join("users", "classes.user_id", "=", "users.id")
-      .select(["classes.*", "users.*"]);
-
-    await transaction.commit();
+      .select(["classes.*", "users.*"])) as IUsersClassessDTO[];
 
     return classes;
   }

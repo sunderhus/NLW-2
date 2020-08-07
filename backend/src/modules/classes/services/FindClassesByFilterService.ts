@@ -1,10 +1,9 @@
 import AppError from "@shared/errors/AppError";
-import { inject, injectable } from "tsyringe";
-import ICreateClassesDTO from "../dto/ICreateClassesDTO";
-import IClass from "../infra/knex/entities/Class";
-import IClassesRepository from "../repositories/IClassesRepository";
-import IFilterClassesDTO from "../dto/IFilterClassesDTO";
 import convertHourToMinutes from "@shared/utils/convertHourToMinutes";
+import { inject, injectable } from "tsyringe";
+import IFilterClassesDTO from "../dtos/IFilterClassesDTO";
+import IUsersClassessDTO from "../dtos/IUsersClassessDTO";
+import IClassesRepository from "../repositories/IClassesRepository";
 
 @injectable()
 class FindClassesByFilterService {
@@ -17,16 +16,16 @@ class FindClassesByFilterService {
     subject,
     time,
     week_day,
-  }: IFilterClassesDTO): Promise<IClass[]> {
+  }: IFilterClassesDTO): Promise<IUsersClassessDTO[]> {
     if (!subject || !time || !week_day) {
       throw new AppError("Missing filters.");
     }
 
-    const timeInMinutes = convertHourToMinutes(time);
+    const timeInMinutes = convertHourToMinutes(time as string);
 
     const classes = await this.classesRepository.findAllClassesByFilter({
       subject,
-      time,
+      time: timeInMinutes,
       week_day,
     });
 
