@@ -4,6 +4,7 @@ import ICreateClassesDTO from "@modules/classes/dto/ICreateClassesDTO";
 import db from "@shared/infra/database/knex/connections";
 import convertHourToMinutes from "@shared/utils/convertHourToMinutes";
 import IClass from "../entities/Class";
+import AppError from "@shared/errors/AppError";
 
 class ClassesRepository implements IClassesRepository {
   public async create({
@@ -16,45 +17,50 @@ class ClassesRepository implements IClassesRepository {
     schedule,
   }: ICreateClassesDTO): Promise<IClass> {
     const transaction = await db.transaction();
+    try {
+      const createdUserIds = await transaction("users").insert({
+        name,
+        avatar,
+        whatsapp,
+        bio,
+      });
 
-    const createdUserIds = await transaction("users").insert({
-      name,
-      avatar,
-      whatsapp,
-      bio,
-    });
+      const user_id = createdUserIds[0];
 
-    const user_id = createdUserIds[0];
+      const createdClassesIds = await transaction("classes").insert({
+        subject,
+        avatar,
+        cost,
+        user_id,
+      });
 
-    const createdClassesIds = await transaction("classes").insert({
-      subject,
-      avatar,
-      cost,
-      user_id,
-    });
+      const class_id = createdClassesIds[0];
 
-    const class_id = createdClassesIds[0];
+      const parsedSchedules = schedule.map((schedule) => {
+        return {
+          week_day: schedule.week_day,
+          from: convertHourToMinutes(schedule.from),
+          to: convertHourToMinutes(schedule.to),
+          class_id: class_id,
+        };
+      });
 
-    const parsedSchedules = schedule.map((schedule) => {
+      await transaction("class_schedule").insert(parsedSchedules);
+
+      await transaction.commit();
+
       return {
-        week_day: schedule.week_day,
-        from: convertHourToMinutes(schedule.from),
-        to: convertHourToMinutes(schedule.to),
-        class_id: class_id,
+        avatar,
+        cost,
+        id: class_id,
+        subject,
+        user_id: user_id.toString(10),
       };
-    });
+    } catch {
+      transaction.rollback();
 
-    await transaction("class_schedule").insert(parsedSchedules);
-
-    await transaction.commit();
-
-    return {
-      avatar,
-      cost,
-      id: class_id,
-      subject,
-      user_id: user_id.toString(10),
-    };
+      throw new AppError("Erro on create a new class.");
+    }
   }
 }
 

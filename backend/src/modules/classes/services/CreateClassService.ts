@@ -28,21 +28,17 @@ class CreateClassService {
       throw new AppError("Inform valid class information.");
     }
 
-    try {
-      const createdClass = await this.classesRepository.create({
-        name,
-        bio,
-        avatar,
-        cost,
-        whatsapp,
-        subject,
-        schedule,
-      });
+    const createdClass = await this.classesRepository.create({
+      name,
+      bio,
+      avatar,
+      cost,
+      whatsapp,
+      subject,
+      schedule,
+    });
 
-      return createdClass;
-    } catch {
-      throw new AppError("Error on create a study class.");
-    }
+    return createdClass;
   }
 }
 
