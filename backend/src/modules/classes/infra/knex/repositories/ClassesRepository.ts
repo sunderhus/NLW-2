@@ -5,6 +5,8 @@ import db from "@shared/infra/database/knex/connections";
 import convertHourToMinutes from "@shared/utils/convertHourToMinutes";
 import IClass from "../entities/Class";
 import AppError from "@shared/errors/AppError";
+import IFilterClassesDTO from "@modules/classes/dto/IFilterClassesDTO";
+import { response } from "express";
 
 class ClassesRepository implements IClassesRepository {
   public async create({
@@ -61,6 +63,23 @@ class ClassesRepository implements IClassesRepository {
 
       throw new AppError("Erro on create a new class.");
     }
+  }
+
+  public async findAllClassesByFilter({
+    subject,
+    time,
+    week_day,
+  }: IFilterClassesDTO): Promise<IClass[]> {
+    const transaction = await db.transaction();
+
+    const classes = await transaction("classes")
+      .where("classes.subject", "=", subject)
+      .join("users", "classes.user_id", "=", "users.id")
+      .select(["classes.*", "users.*"]);
+
+    await transaction.commit();
+
+    return classes;
   }
 }
 
