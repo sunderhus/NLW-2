@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsnd -r tsconfig-paths/register  --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.7",
+    "ts-node-dev": "^1.0.0-pre.56",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "celebrate": "^12.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "knex": "^0.21.2",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "tsyringe": "^4.3.0"
+  }
+}
