@@ -24,7 +24,7 @@ export default class ConnectionsController {
 
       const total = await totalOfConnections.execute();
 
-      return response.status(200).json(total);
+      return response.status(200).json({ total });
     } catch (error) {
       return response.status(400).json({ message: error.message });
     }
