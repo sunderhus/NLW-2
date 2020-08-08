@@ -44,6 +44,13 @@ export const HeaderContent = styled.div`
     font: 700 3.6rem Archivo;
     color: var(--color-title-in-primary);
   }
+  p {
+    font: 700 1.6rem Archivo;
+    max-width: 30rem;
+    line-height: 2.6rem;
+    margin-top: 2.4rem;
+    color: var(--color-text-in-primary);
+  }
 
   @media (min-width: 700px) {
     flex: 1;

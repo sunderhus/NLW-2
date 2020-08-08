@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Container } from "./styles";
 import whatsAppIcon from "../../assets/images/icons/whatsapp.svg";
+import api from "../../services/api";
 export const TeacherItem: React.FC = () => {
+  const handleCreateConnection = useCallback((user_id: number) => {
+    api.post("/connections", {
+      user_id,
+    });
+  }, []);
+
   return (
     <Container>
       <header>
@@ -31,7 +38,7 @@ export const TeacherItem: React.FC = () => {
           <strong>R$80,00</strong>
         </p>
 
-        <button type="button">
+        <button type="button" onClick={() => handleCreateConnection(1)}>
           <img src={whatsAppIcon} alt="ícone de telefone" />
           <span>Enviar Contato</span>
         </button>

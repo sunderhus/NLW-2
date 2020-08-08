@@ -8,10 +8,14 @@ import backIcon from "../../assets/images/icons/back.svg";
 
 interface IPageHeaderProps {
   title: string;
-  subtitle?: string;
+  description?: string;
 }
 
-const PageHeader: React.FC<IPageHeaderProps> = ({ title, children }) => {
+const PageHeader: React.FC<IPageHeaderProps> = ({
+  title,
+  children,
+  description,
+}) => {
   return (
     <Header>
       <TopBarContainer>
@@ -21,8 +25,9 @@ const PageHeader: React.FC<IPageHeaderProps> = ({ title, children }) => {
         <Logo src={logoImg} alt="Logomarca escrito Proffy." />
       </TopBarContainer>
 
-      <HeaderContent>
+      <HeaderContent id="header-content">
         <strong>{title}</strong>
+        {description && <p>{description}</p>}
         {children}
       </HeaderContent>
     </Header>
