@@ -53,7 +53,7 @@ export const Container = styled.article`
       display: block;
     }
 
-    button {
+    a {
       width: 20rem;
       height: 5.6rem;
       background: var(--color-secundary);
@@ -67,7 +67,7 @@ export const Container = styled.article`
       justify-content: space-evenly;
       outline: none;
       transition: background-color 0.2s;
-
+      text-decoration: none;
       &:hover {
         background: var(--color-secundary-dark);
       }

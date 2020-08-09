@@ -52,10 +52,10 @@ class ClassesRepository implements IClassesRepository {
 
       return {
         avatar,
-        cost,
+        cost: Number(cost),
         id: class_id,
         subject,
-        user_id: user_id.toString(10),
+        user_id: user_id,
       };
     } catch {
       transaction.rollback();

@@ -1,25 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent, useCallback } from "react";
 import PageHeader from "../../components/PageHeader";
-import { TeacherItem } from "../../components/TeacherItem";
+import { TeacherItem, IProffy } from "../../components/TeacherItem";
 
 import { Container, Form, Content, NotFound } from "./styles";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
+import api from "../../services/api";
 
 const TeacherForm: React.FC = () => {
-  const [teachers, setTeachers] = useState([]);
+  const [subject, setSubject] = useState("");
+  const [weekDay, setWeekDay] = useState("");
+  const [time, setTime] = useState("");
+
+  const [proffys, setProffys] = useState([]);
+
+  const searchProffys = useCallback(
+    async (e: FormEvent) => {
+      e.preventDefault();
+      const response = await api.get("classes", {
+        params: {
+          subject,
+          week_day: weekDay,
+          time,
+        },
+      });
+      setProffys(response.data);
+    },
+    [subject, time, weekDay]
+  );
 
   return (
     <Container>
       <PageHeader title="Estes são os proffys disponíveis.">
-        <Form>
+        <Form onSubmit={searchProffys}>
           <Select
             label="Matéria"
             name="subject"
+            value={subject}
+            onChange={(e) => {
+              setSubject(e.target.value);
+            }}
             options={[
-              { value: "IT", label: "Programação Web" },
+              { value: "Programacao", label: "Programação" },
               { value: "Matematica", label: "Matemática" },
-              { value: "Física", label: "Física" },
+              { value: "Fisica", label: "Física" },
               { value: "Quimica", label: "Química" },
               { value: "Historia", label: "História" },
               { value: "Biologia", label: "Biologia" },
@@ -28,6 +52,10 @@ const TeacherForm: React.FC = () => {
           <Select
             label="Dia da semana"
             name="week_day"
+            value={weekDay}
+            onChange={(e) => {
+              setWeekDay(e.target.value);
+            }}
             options={[
               { value: "0", label: "Domingo" },
               { value: "1", label: "Segunda-feira" },
@@ -38,14 +66,25 @@ const TeacherForm: React.FC = () => {
               { value: "6", label: "Sábado" },
             ]}
           />
-          <Input label="Hora" name="time" type="time" />
+          <Input
+            label="Hora"
+            name="time"
+            type="time"
+            value={time}
+            onChange={(e) => {
+              setTime(e.target.value);
+            }}
+          />
+          <button type="submit">Buscar</button>
         </Form>
       </PageHeader>
 
       <Content>
-        {teachers ? (
+        {proffys.length > 0 ? (
           <>
-            <TeacherItem />
+            {proffys.map((proffy: IProffy) => {
+              return <TeacherItem key={proffy.id} teacher={proffy} />;
+            })}
           </>
         ) : (
           <NotFound>

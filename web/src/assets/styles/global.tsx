@@ -40,6 +40,10 @@ textarea{
     width: 90vw;
     max-width: 700px;
 }
+button{
+    outline:none;
+    cursor:pointer;
+}
 
 @media (min-width:700px){
     :root{
