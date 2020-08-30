@@ -41,11 +41,11 @@ const TeacherForm: React.FC = () => {
               setSubject(e.target.value);
             }}
             options={[
-              { value: "Programacao", label: "Programação" },
-              { value: "Matematica", label: "Matemática" },
-              { value: "Fisica", label: "Física" },
-              { value: "Quimica", label: "Química" },
-              { value: "Historia", label: "História" },
+              { value: "Programação", label: "Programação" },
+              { value: "Matemática", label: "Matemática" },
+              { value: "Física", label: "Física" },
+              { value: "Química", label: "Química" },
+              { value: "História", label: "História" },
               { value: "Biologia", label: "Biologia" },
             ]}
           />
