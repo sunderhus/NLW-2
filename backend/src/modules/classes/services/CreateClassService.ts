@@ -24,7 +24,7 @@ class CreateClassService {
       throw new AppError("You need to pass a valid Proffy information.");
     }
 
-    if (!cost || !subject || schedule.length == 0) {
+    if (!cost || !subject || schedule.length === 0) {
       throw new AppError("Inform valid class information.");
     }
 
